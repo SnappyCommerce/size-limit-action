@@ -26,6 +26,13 @@ class Term {
 
 			await exec(`git checkout -f ${branch} --recurse-submodules`);
 
+			try {
+				console.log(`Update submodules for branch: ${branch}`)
+				await exec(`git submodule update --init --recursive`);
+			} catch (error) {
+				console.error("Failed to update submodules", error.message);
+			}
+
 			// try {
 			// 	console.log(`Remote update submodules for branch: ${branch}`)
 			// 	await exec(`git submodule foreach git remote update`);
