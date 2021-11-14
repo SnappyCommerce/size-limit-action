@@ -17,6 +17,7 @@ class Term {
     let output = "";
 
     if (branch) {
+		console.log(`Checking out branch: ${branch}`)
       try {
         await exec(`git fetch origin ${branch} --depth=1`);
       } catch (error) {
@@ -25,6 +26,7 @@ class Term {
 
       await exec(`git checkout -f ${branch}`);
       try {
+		console.log(`Checking out submodules for branch: ${branch}`)
         await exec(`git submodule foreach git checkout -f ${branch}`);
       } catch (error) {
         console.log("Failed to checkout submodules", error.message);
