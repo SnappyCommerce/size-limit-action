@@ -25,11 +25,19 @@ class Term {
 			}
 
 			await exec(`git checkout -f ${branch}`);
+
+			try {
+				console.log(`Fetch submodules for branch: ${branch}`)
+				await exec(`git submodule foreach git fetch origin ${branch} --depth=1`);
+			} catch (error) {
+				console.error("Failed to fetch submodules", error.message);
+			}
+
 			try {
 				console.log(`Checking out submodules for branch: ${branch}`)
-				await exec(`git submodule foreach git pull origin ${branch}`);
+				await exec(`git submodule foreach git checkout -f ${branch}`);
 			} catch (error) {
-				console.log("Failed to checkout submodules", error.message);
+				console.error("Failed to checkout submodules", error.message);
 			}
 		}
 
