@@ -10591,7 +10591,7 @@ class Term {
                 }
                 try {
                     console.log(`Checking out submodules for branch: ${branch}`);
-                    yield exec_1.exec(`git submodule foreach git checkout -f ${branch}`);
+                    yield exec_1.exec(`git submodule foreach git checkout -t -b ${branch} origin/${branch}`);
                 }
                 catch (error) {
                     console.error("Failed to checkout submodules", error.message);

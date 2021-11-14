@@ -35,7 +35,7 @@ class Term {
 
 			try {
 				console.log(`Checking out submodules for branch: ${branch}`)
-				await exec(`git submodule foreach git checkout -f ${branch}`);
+				await exec(`git submodule foreach git checkout -t -b ${branch} origin/${branch}`);
 			} catch (error) {
 				console.error("Failed to checkout submodules", error.message);
 			}
