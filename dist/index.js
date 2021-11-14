@@ -10583,15 +10583,22 @@ class Term {
                 }
                 yield exec_1.exec(`git checkout -f ${branch}`);
                 try {
+                    console.log(`Remote update submodules for branch: ${branch}`);
+                    yield exec_1.exec(`git submodule foreach git remote update`);
+                }
+                catch (error) {
+                    console.error("Failed to update remote for submodules", error.message);
+                }
+                try {
                     console.log(`Fetch submodules for branch: ${branch}`);
-                    yield exec_1.exec(`git submodule foreach git fetch origin ${branch} --depth=1`);
+                    yield exec_1.exec(`git submodule foreach git fetch`);
                 }
                 catch (error) {
                     console.error("Failed to fetch submodules", error.message);
                 }
                 try {
                     console.log(`Checking out submodules for branch: ${branch}`);
-                    yield exec_1.exec(`git submodule foreach git checkout -t -b ${branch} origin/${branch}`);
+                    yield exec_1.exec(`git submodule foreach git checkout --track -f ${branch}`);
                 }
                 catch (error) {
                     console.error("Failed to checkout submodules", error.message);
