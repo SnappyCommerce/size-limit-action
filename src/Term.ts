@@ -24,6 +24,11 @@ class Term {
       }
 
       await exec(`git checkout -f ${branch}`);
+      try {
+        await exec(`git submodule foreach git checkout -f ${branch}`);
+      } catch (error) {
+        console.log("Failed to checkout submodules", error.message);
+      }
     }
 
     if (skipStep !== INSTALL_STEP && skipStep !== BUILD_STEP) {
