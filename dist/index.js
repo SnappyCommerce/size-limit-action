@@ -10581,14 +10581,21 @@ class Term {
                 catch (error) {
                     console.log("Fetch failed", error.message);
                 }
-                yield exec_1.exec(`git checkout -f ${branch} --recurse-submodules`);
+                yield exec_1.exec(`git checkout -f ${branch}`);
                 try {
                     console.log(`Update submodules for branch: ${branch}`);
-                    yield exec_1.exec(`git submodule update --init --recursive`);
+                    yield exec_1.exec(`git pull --recurse-submodules`);
+                    yield exec_1.exec(`git submodule update --remote --recursive`);
                 }
                 catch (error) {
                     console.error("Failed to update submodules", error.message);
                 }
+                // try {
+                // 	console.log(`Update submodules for branch: ${branch}`)
+                // 	await exec(`git submodule update --init --recursive`);
+                // } catch (error) {
+                // 	console.error("Failed to update submodules", error.message);
+                // }
                 // try {
                 // 	console.log(`Remote update submodules for branch: ${branch}`)
                 // 	await exec(`git submodule foreach git remote update`);

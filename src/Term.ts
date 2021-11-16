@@ -24,14 +24,22 @@ class Term {
 				console.log("Fetch failed", error.message);
 			}
 
-			await exec(`git checkout -f ${branch} --recurse-submodules`);
+			await exec(`git checkout -f ${branch}`);
 
 			try {
-				console.log(`Update submodules for branch: ${branch}`)
-				await exec(`git submodule update --init --recursive`);
+ 				console.log(`Update submodules for branch: ${branch}`);
+				await exec(`git pull --recurse-submodules`);
+				await exec(`git submodule update --remote --recursive`);
 			} catch (error) {
 				console.error("Failed to update submodules", error.message);
 			}
+
+			// try {
+			// 	console.log(`Update submodules for branch: ${branch}`)
+			// 	await exec(`git submodule update --init --recursive`);
+			// } catch (error) {
+			// 	console.error("Failed to update submodules", error.message);
+			// }
 
 			// try {
 			// 	console.log(`Remote update submodules for branch: ${branch}`)
