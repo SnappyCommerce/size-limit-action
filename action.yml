@@ -25,5 +25,5 @@ inputs:
     description: "exec `size-limit` with the option `windowsVerbatimArguments`"
     default: true
 runs:
-  using: 'node16'
+  using: 'node12'
   main: 'dist/index.js'
